@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ranjana Lipi to Devanagari Conversion</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f4f7fc;
+            font-family: 'Arial', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 90%;
+            max-width: 450px;
+            margin-bottom: 15px;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #333;
+        }
+        .upload-section {
+            margin: 20px 0;
+        }
+        select, input[type="file"], button {
+            width: 100%;
+            padding: 12px;
+            font-size: 1rem;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #4EACA5;
+            color: white;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        img {
+            width: 100%;
+            max-width: 200px;
+            margin: 10px auto;
+            display: none;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .result-box {
+            margin-top: 10px;
+            padding: 15px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 91%;
+            max-width: 450px;
+            display: none;
+        }
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .menu button {
+            background-color: #4EACA5;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .menu button.active {
+            background-color: #2E8B57;
+        }
+        .green { color: green; }
+        .orange { color: orange; }
+        .red { color: red; }
+
+
+/* Common Styles for Dark Mode Button */
+#dark-mode-btn {
+    position: fixed; /* Position it fixed at the top right corner */
+    top: 15px; /* 15px from the top */
+    right: 15px; /* 15px from the right */
+    padding: 8px 12px; /* Smaller padding for a smaller button */
+    width: auto;
+    z-index: 1000; /* Ensure it's above other elements */
+    border-radius: 20px; /* Slightly rounded corners */
+    border: 1px solid #ccc; /* Optional: border for better visibility */
+    text-align: center; /* Ensure text is centered */
+}
+
+/* Dark Mode Styles */
+body.dark-mode {
+    background-color: #2c2f36;
+    color: #f0f0f0;
+}
+
+body.dark-mode .container {
+    background-color: #3a3f47;
+    color: #f0f0f0;
+}
+
+body.dark-mode .btn-dark {
+    background-color: #1c1e22;
+    color: #f0f0f0;
+}
+
+body.dark-mode .btn-dark:hover {
+    background-color: #333;
+}
+
+body.dark-mode h1, .menu button.active {
+    color: #f0f0f0;
+}
+
+body.dark-mode img {
+    filter: brightness(0.8);
+}
+
+body.dark-mode .result-box {
+    background-color: #3a3f47; /* Dark background */
+    color: #f0f0f0; /* White text */
+    border: 1px solid #444; /* Subtle border for separation */
+}
+
+/* Button color when dark mode is active (light background and dark text) */
+body.dark-mode #dark-mode-btn {
+    background-color: #F4F7FC; /* Light color for dark mode */
+    color: #333; /* Dark text for contrast */
+}
+
+/* Light Mode Styles */
+body:not(.dark-mode) #dark-mode-btn {
+    background-color: #2C2F36; /* Dark color for light mode */
+    color: white; /* White text */
+}
+
+
+
+
+
+
+    </style>
+</head>
+<body>
+   
+    
+    <h1>Ranjana Lipi to Devanagari</h1>
+
+    <button id="dark-mode-btn" class="btn btn-dark" onclick="toggleDarkMode()" style="position: absolute; top: 10px; right: 10px;">
+        Dark Mode
+    </button>
+    
+    <div class="menu" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+        <div style="display: flex; gap: 10px;">
+            <button id="char-level-btn" class="active" onclick="showCharacterLevel()">
+                <b>Character Level</b>
+            </button>
+            <button id="word-level-btn" onclick="showWordLevel()">
+                <b>Word Level</b>
+            </button>
+            <button id="compare-btn" onclick="openComparison()">
+                <b>Comparison</b>
+            </button>
+        </div>
+        <button id="learn-more-btn" onclick="openLearnPage()">
+            <b>Learn More</b>
+        </button>
+    </div>
+    
+
+    <!-- Character-Level Container -->
+    <div class="container" id="character-level-container">
+        <form id="char-uploadForm" enctype="multipart/form-data">
+            <div class="upload-section">
+                <label for="char-model">Select Model:</label>
+                <select id="char-model" name="model" required>
+                    <option value="lenet5">LeNet-5</option>
+                    <option value="ran2dev">Ran2Dev</option>
+                </select>
+            </div>
+            <div class="upload-section">
+                <label for="char-image">Upload an Image:</label>
+                <input type="file" id="char-image" name="image" accept="image/*" required>
+                <img id="char-image-preview" src="" alt="Image Preview">
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    <div id="char-result" class="result-box">
+        <p><strong>Prediction:</strong> <b><span id="char-prediction"></span></b></p>
+        <!-- <p><strong>Confidence:</strong> <b><span id="char-confidence" class="confidence"></span></b></p> -->
+    </div>
+
+    <!-- Word-Level Container -->
+    <div class="container" id="word-level-container" style="display: none;">
+        <form id="word-uploadForm" enctype="multipart/form-data">
+            <div class="upload-section">
+                <label for="word-model">Select Model:</label>
+                <select id="word-model" name="model" required>
+                    <option value="lenet5">LeNet-5</option>
+                    <option value="ran2dev">Ran2Dev</option>
+                </select>
+            </div>
+            <div class="upload-section">
+                <label for="word-image">Upload an Image:</label>
+                <input type="file" id="word-image" name="image" accept="image/*" required>
+                <img id="word-image-preview" src="" alt="Image Preview">
+            </div>
+            <button type="submit">Predict</button>
+        </form>
+    </div>
+
+    <div id="word-result" class="result-box">
+        <p><strong>Prediction:</strong> <b><span id="word-prediction"></span></b></p>
+        <!-- <p><strong>Confidence:</strong> <b><span id="word-confidence" class="confidence"></span></b></p> -->
+    </div>
+
+    <script>
+    function showCharacterLevel() {
+        document.getElementById('char-level-btn').classList.add('active');
+        document.getElementById('word-level-btn').classList.remove('active');
+        document.getElementById('character-level-container').style.display = 'block';
+        document.getElementById('word-level-container').style.display = 'none';
+        document.getElementById('word-result').style.display = 'none';
+    }
+
+    function showWordLevel() {
+        document.getElementById('char-level-btn').classList.remove('active');
+        document.getElementById('word-level-btn').classList.add('active');
+        document.getElementById('character-level-container').style.display = 'none';
+        document.getElementById('word-level-container').style.display = 'block';
+        document.getElementById('char-result').style.display = 'none';
+    }
+
+    function openLearnPage() {
+    window.open("/learn", "_blank");
+}
+
+    function openComparison() {
+        window.open('/compare_models', '_blank');
+    }
+
+    function toggleDarkMode() {
+            const body = document.body;
+            body.classList.toggle('dark-mode');
+            const button = document.getElementById('dark-mode-btn');
+            if (body.classList.contains('dark-mode')) {
+                button.textContent = 'Light Mode';
+            } else {
+                button.textContent = 'Dark Mode';
+            }
+        }
+
+    function previewImage(input, previewId) {
+        const file = input.files[0];
+        const preview = document.getElementById(previewId);
+
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                preview.src = e.target.result;
+                preview.style.display = "block";
+            };
+            reader.readAsDataURL(file);
+        } else {
+            preview.src = "";
+            preview.style.display = "none";
+        }
+    }
+
+    document.getElementById("char-image").addEventListener("change", function () {
+        previewImage(this, "char-image-preview");
+    });
+
+    document.getElementById("word-image").addEventListener("change", function () {
+        previewImage(this, "word-image-preview");
+    });
+
+    async function handleFormSubmit(formId, endpoint, predictionId, resultContainerId) {
+    const form = document.getElementById(formId);
+    
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const formData = new FormData(this);
+
+        // Show loading state
+        const predictionElement = document.getElementById(predictionId);
+        const resultContainer = document.getElementById(resultContainerId);
+        predictionElement.textContent = "Processing...";
+        resultContainer.style.display = 'block';
+
+        try {
+            const response = await fetch(endpoint, {
+                method: 'POST',
+                body: formData,
+            });
+
+            if (!response.ok) {
+                throw new Error(`Server returned ${response.status}`);
+            }
+
+            const text = await response.text(); // Get raw response text
+            let data;
+            try {
+                data = JSON.parse(text);  // Try parsing JSON
+            } catch (jsonError) {
+                console.error('JSON Parse Error:', text);
+                predictionElement.textContent = "Error: Invalid response from server.";
+                throw new Error("Invalid JSON response from server");
+            }
+
+            if (data.error) {
+                console.error(data.error);
+                predictionElement.textContent = `Error: ${data.error}`;
+                alert('Error: ' + data.error);
+            } else {
+                predictionElement.textContent = data.prediction || 'No prediction';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            predictionElement.textContent = "Error processing request.";
+            alert('Error processing the request: ' + error.message);
+        }
+    });
+}
+
+
+    handleFormSubmit('char-uploadForm', '/predict', 'char-prediction', 'char-result');
+    handleFormSubmit('word-uploadForm', '/predict-word', 'word-prediction', 'word-result');
+    </script>
+</body>
+</html>

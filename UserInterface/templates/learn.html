@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e3f2fd);
+            padding: 30px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #222;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        .block {
+            margin-top: 20px;
+            padding: 20px;
+            border-left: 6px solid;
+            border-radius: 10px;
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .block:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        /* Light Color Theme */
+        .yellow { background: #fffde7; border-color: #fbc02d; }
+        .red { background: #ffebee; border-color: #d32f2f; }
+        .blue { background: #e3f2fd; border-color: #1976d2; }
+        .green { background: #e8f5e9; border-color: #388e3c; }
+        .purple { background: #ede7f6; border-color: #673ab7; }
+        .orange { background: #fff3e0; border-color: #e65100; }
+
+        ul { margin: 10px 0; padding-left: 20px; }
+
+        /* Image Styling */
+        figure {
+            text-align: center;
+            margin: 20px 0;
+        }
+        img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 12px;
+            margin-top: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25);
+        }
+        figcaption {
+            font-size: 1rem;
+            color: #444;
+            font-weight: bold;
+            margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>About Our System</h1>
+
+        <div class="block yellow">
+            <h2>Project Overview</h2>
+            <p>This project integrates deep learning models, including LeNet-5 and our custom-built model called Ran2Dev.</p>
+        </div>
+
+        <div class="block blue">
+            <h2>Prerequisites</h2>
+            <ul>
+                <li><strong>Familiarity with Ranjana Lipi:</strong> Users must know the Ranjana Lipi script.</li>
+                <li><strong>Image Condition:</strong> Characters should be written on plain paper with no strikes or additional markings.</li>
+                <li><strong>Proper Alignment:</strong> Input images must be vertically aligned with minimal skew or no rotation.</li> 
+                <li><strong>No Modifiers:</strong> Only Ranjana characters without modifiers are supported.</li>
+                <li><strong>Correct Input:</strong> The model gives incorrect results for non-Ranjana scripts.</li>
+                <li><strong>Thick Strokes:</strong> The model is designed for characters with thick or medium strokes only.</li>
+            </ul>
+        </div>
+
+        <div class="block red">
+            <h2>Types of Nepalese Scripts</h2>
+            <figure>
+                <img src="{{ url_for('static', filename='images/typesofnepalesecripts.png') }}" alt="Nepalese Script">
+                <figcaption>Types of Nepalese Script</figcaption>
+            </figure>
+            <figure>
+                <img src="{{ url_for('static', filename='images/generic_model.png') }}" alt="Generic Model">
+                <figcaption>Generic Model of our System</figcaption>
+            </figure>
+        </div>
+
+        <div class="block purple">
+            <h2>Ranjana Lipi Characters</h2>
+            <figure>
+                <img src="{{ url_for('static', filename='images/consonants.jpg') }}" alt="Consonant Letters">
+                <figcaption>Consonant Letters in Ranjana Lipi</figcaption>
+            </figure>
+            <figure>
+                <img src="{{ url_for('static', filename='images/vowels.png') }}" alt="Vowel Letters">
+                <figcaption>Vowel Letters in Ranjana Lipi</figcaption>
+            </figure>
+            <figure>
+                <img src="{{ url_for('static', filename='images/numbers.png') }}" alt="Numbers">
+                <figcaption>Numbers in Ranjana Lipi</figcaption>
+            </figure>
+        </div>
+
+        <div class="block green">
+            <h2>Diagrams of Models</h2>
+            <p>We used <strong>LeNet-5</strong> and a custom-built model called <strong>Ran2Dev</strong>.</p>
+
+            <figure>
+                <img src="{{ url_for('static', filename='images/LeNet-5.png') }}" alt="LeNet-5">
+                <figcaption>LeNet-5 Model Architecture</figcaption>
+            </figure>
+
+            <figure>
+                <img src="{{ url_for('static', filename='images/ran2dev.png') }}" alt="Ran2Dev">
+                <figcaption>Ran2Dev Model Architecture</figcaption>
+            </figure>
+        </div>
+
+        <!-- Orange: Developers -->
+<div class="block orange">
+    <h2>Developers</h2>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
+        <tr style="background: #ffcc80;">
+            <th style="padding: 10px; border: 1px solid #e65100;">Name</th>
+            <th style="padding: 10px; border: 1px solid #e65100;">LinkedIn URL</th>
+            <th style="padding: 10px; border: 1px solid #e65100;">GitHub URL</th>
+            <th style="padding: 10px; border: 1px solid #e65100;">Website URL</th>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #e65100;">Nischal Baidar</td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://www.linkedin.com/in/nischal-baidar-aa8943208/" target="_blank" rel="noopener noreferrer">LinkedIn</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://github.com/bainash10" target="_blank" rel="noopener noreferrer">GitHub</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://nischalbaidar.com.np/" target="_blank" rel="noopener noreferrer">Website</a></td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #e65100;">Surag Basukala</td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://www.linkedin.com/in/basukala-surag-9379ba248/" target="_blank" rel="noopener noreferrer">LinkedIn</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://github.com/Garus007" target="_blank" rel="noopener noreferrer">GitHub</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;">—</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #e65100;">Nekesh Koju</td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://www.linkedin.com/in/nekesh-koju-97a403209/?originalSubdomain=np" target="_blank" rel="noopener noreferrer">LinkedIn</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://github.com/nekeshkoju07" target="_blank" rel="noopener noreferrer">GitHub</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;">—</td>
+        </tr>
+        <tr>
+            <td style="padding: 8px; border: 1px solid #e65100;">Sarif Tachamo</td>
+            <td style="padding: 8px; border: 1px solid #e65100;"><a href="https://www.linkedin.com/in/sarif-tachamo-06b9b9248/" target="_blank" rel="noopener noreferrer">LinkedIn</a></td>
+            <td style="padding: 8px; border: 1px solid #e65100;">—</td>
+            <td style="padding: 8px; border: 1px solid #e65100;">—</td>
+        </tr>
+    </table>
+</div>
+
+    </div>
+</body>
+</html>
